@@ -20,7 +20,7 @@ q = deque([x])
 
 
 while q:
-  
+
   now = q.popleft()
   # 현재 도시에서 이동할 수 있는 모든 도시들을 확인
   for next_node in graph[now]:
@@ -33,7 +33,6 @@ while q:
 # 최단거리가 k인 모든 도시들의 번호를 오름차순으로 출력
 check = False
 
-# 최단 거리가 K인 모든 도시의 번호를 오름차순으로 출력
 for i in range(1, n+1):
   if dist[i] == k:
     print(i)
