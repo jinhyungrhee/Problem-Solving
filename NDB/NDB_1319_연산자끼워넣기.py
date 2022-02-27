@@ -1,4 +1,4 @@
-# 완전탐색 DFS 사용
+# 완전탐색(=backtracking) DFS 사용
 import sys
 n = int(input())
 
