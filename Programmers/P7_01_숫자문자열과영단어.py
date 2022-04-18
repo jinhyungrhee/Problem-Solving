@@ -1,3 +1,4 @@
+'''
 # s = "one4seveneight"
 # s = "23four5six7"
 s = "2three45sixseven"
@@ -78,3 +79,39 @@ def solution(s):
   return int(answer)
       
 solution(s)
+'''
+
+# 모범 답안
+
+s = "one4seveneight"
+# s = "23four5six7"
+# s = "2three45sixseven"
+# s = "123"
+
+def solution(s):
+  while s.isdigit() == False: # s에 영단어가 존재하는 동안 반복
+    if s.find('one') != -1: # 'one'이 존재하면
+      s = s.replace('one', '1')
+    elif s.find('two') != -1:
+      s = s.replace('two', '2')
+    elif s.find('three') != -1:
+      s = s.replace('three', '3')
+    elif s.find('four') != -1:
+      s = s.replace('four', '4')
+    elif s.find('five') != -1:
+      s = s.replace('five', '5')
+    elif s.find('six') != -1:
+      s = s.replace('six', '2')
+    elif s.find('seven') != -1:
+      s = s.replace('seven', '7')
+    elif s.find('eight') != -1:
+      s = s.replace('eight', '8')
+    elif s.find('nine') != -1:
+      s = s.replace('nine', '9')
+    elif s.find('zero') != -1:
+      s = s.replace('zero', '0')
+    else:
+      None
+  return int(s)
+
+print(solution(s))
