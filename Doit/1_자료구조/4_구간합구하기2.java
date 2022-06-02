@@ -28,7 +28,7 @@ class Main{
       }
     }
 
-    // 출력코드
+    // 출력
     /*
     for (int i = 1; i <= N; i++) {
       for (int j = 1; j <= N; j++) {
