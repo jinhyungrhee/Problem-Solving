@@ -31,7 +31,11 @@ class Main{
   // 병합 정렬 함수 구현
   private static void merge_sort(int s, int e) {
     if (e  - s < 1) return; // 종료 조건
-    int m = (s + e) / 2;
+
+    // 중간값 구하기
+    // int m = (s + e) / 2;
+    int m = s + (e - s) / 2; // 결과가 동일한 이유는?
+
     // 재귀 함수 형태로 구현
     merge_sort(s, m);
     merge_sort(m + 1, e);
@@ -40,7 +44,7 @@ class Main{
       tmp[i] = A[i];
     }
 
-    int k = s;
+    int k = s; // k는 선택된 데이터의 인덱스
     int idx1 = s; // 앞쪽 그룹 시작점
     int idx2 = m + 1; // 뒤쪽 그룹 시작점
 
