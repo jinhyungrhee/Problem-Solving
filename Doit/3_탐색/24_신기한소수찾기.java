@@ -9,6 +9,7 @@ class Main {
 
     Scanner sc = new Scanner(System.in);
     N = sc.nextInt();
+    
     // 일의 자리 소수 4개로부터 시작
     DFS(2, 1);
     DFS(3, 1);
