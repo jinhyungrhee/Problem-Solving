@@ -37,7 +37,6 @@ class Main {
         DFS(i);
       }
     }
-
     System.out.println(count);
   }
   // Q.언제는 public 쓰고, 언제는 private 쓰고, 언제는 아예 안붙이는데(=public) 정확한 기준이 뭘까?**
