@@ -25,10 +25,10 @@ class Main {
 
       // 제곱수의 배수 형태로 탐색 (바깥 for문에서 제곱수(pow)값 갱신됨)
       for (long j = start_index; j * pow <= MAX; j++) { // (j * pow)가 MAX보다 작을 때, 최솟값-최댓값 사이의 제곱수임**
-        Check[(int) ((j * pow) - MIN)] = true; // 제곱수를 true로 변경(Count배열에 저장)
+        Check[(int) ((j * pow) - MIN)] = true; // 제곱수를 true로 변경
       }
     }
-    
+
     int count = 0;
     for (int i = 0; i <= MAX - MIN; i++ ){
       if (!Check[i]) {
