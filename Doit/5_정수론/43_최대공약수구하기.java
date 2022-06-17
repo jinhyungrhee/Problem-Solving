@@ -23,7 +23,6 @@ class Main {
     
     bw.flush();
     bw.close();
-
   }
 
   public static long gcd(long a, long b) {
