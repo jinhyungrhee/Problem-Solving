@@ -40,3 +40,23 @@ def is_prime(num):
     
     # 나눠지는 수가 없다면 그것이 바로 소수
     return True
+
+
+# Set 자료형과 집합 연산을 주로 활용하여 해결한 코드
+
+def solution_using_set(numbers):
+    
+    A = set()
+    for i in range(len(numbers)):
+        # |= : 두 set을 union한 결과를 저장 (| == or == union 연산)
+        A |= set(map(int, map(''.join, permutations(list(numbers), i + 1))))
+        
+    # print(A)
+    # print(set(range(0 ,2))) # {0, 1} 집합 생성
+    A -= set(range(0, 2)) # 0과 1은 소수가 아니므로 생성될 경우 제거함(- : 차집합)
+    
+    # 에라토스테네스 체 응용(어떤 수의 제곱근까지 탐색하면서 특정 수의 배수가 되는 수 모두 제거)
+    for i in range(2, int(max(A) ** 0.5) + 1):
+        A -= set(range(i + i, max(A) + 1, i)) # i배씩 증가(= i 배수)
+    
+    return len(A) 
