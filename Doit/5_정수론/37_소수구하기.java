@@ -39,3 +39,27 @@ class Main {
 
   }
 }
+
+'''python
+import math
+
+answer = 0
+
+A = [0] * 1000
+
+# 초기화
+for i in range(2, len(A)):
+    A[i] = i
+
+for i in range(2, int(math.sqrt(len(A))) + 1):
+    if A[i] == 0:
+        continue
+    # 현재 인덱스의 배수 모두 0으로 삭제
+    for j in range(i + i, len(A), i): # i씩 증가
+        A[j] = 0
+        
+# 지워지지 않은 수(=소수) 출력
+for i in range(1, len(A)):
+    if A[i] != 0:
+        print(A[i], end=" ")
+'''
