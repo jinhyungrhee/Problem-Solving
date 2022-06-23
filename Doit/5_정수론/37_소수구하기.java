@@ -40,7 +40,9 @@ class Main {
   }
 }
 
-'''python
+/*
+# Python 코드
+
 import math
 
 answer = 0
@@ -62,4 +64,4 @@ for i in range(2, int(math.sqrt(len(A))) + 1):
 for i in range(1, len(A)):
     if A[i] != 0:
         print(A[i], end=" ")
-'''
+*/
