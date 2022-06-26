@@ -1,3 +1,4 @@
+# 내 답안
 '''
 # s = "one4seveneight"
 # s = "23four5six7"
@@ -81,13 +82,13 @@ def solution(s):
 solution(s)
 '''
 
-# 모범 답안
-
 s = "one4seveneight"
 # s = "23four5six7"
 # s = "2three45sixseven"
 # s = "123"
 
+# 모범 답안1
+'''
 def solution(s):
   while s.isdigit() == False: # s에 영단어가 존재하는 동안 반복
     if s.find('one') != -1: # 'one'이 존재하면
@@ -115,3 +116,26 @@ def solution(s):
   return int(s)
 
 print(solution(s))
+'''
+
+# 모범 답안 2
+
+word = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')
+
+def solution(s):
+    
+    result = ''
+    
+    pos = 0 # 현재 위치
+    while pos < len(s):
+        if s[pos] >= '0' and s[pos] <= '9': # 숫자로 된 문자라면
+            result += s[pos]
+            pos += 1
+        else:
+            for i in range(10):
+                if s.find(word[i], pos, pos + 5) != -1:# 현재위치부터 최대 5까지 찾아봄
+                    result += str(i)
+                    pos += len(word[i])
+                    break
+    answer = int(result)
+    return answer
