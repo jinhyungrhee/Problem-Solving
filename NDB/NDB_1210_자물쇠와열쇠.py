@@ -1,60 +1,81 @@
-# Hint : 자물쇠 크기 3배
+# 220701 (슈도코드 작성 및 참고)
+def rotate(key): # key(이차원 리스트)를 90도 회전
+    n = len(key)
+    m = len(key[0])
+    
+    result = [[0]*m for _ in range(n)]
+    
+    for i in range(n):
+        for j in range(m):
+            result[j][n-i-1] = key[i][j] # 이차원 리스트 90도 회전 알고리즘
+            
+    return result
 
-# 2차원 리스트 90도 회전
-def rotate_a_matrix_by_90_degree(a):
-  n = len(a) # 행
-  m = len(a[0]) # 열
-  result = [[0] * n for _ in range(m)] # 결과 리스트
-
-  for i in range(n):
-    for j in range(m):
-      # 90도 회전하여 저장
-      result[j][n - i - 1] = a[i][j]
-  
-  return result
-
-# 자물쇠 중간 부분이 모두 1인지 확인
 def check(new_lock):
-  lock_length = len(new_lock) // 3
-  # 새로 만든 lock의 1/3지점부터 2/3지점까지 확인
-  for i in range(lock_length, lock_length * 2):
-    for j in range(lock_length, lock_length * 2):
-      if new_lock[i][j] != 1:
-        return False
-  return True
+    # new_lock은 확장된 lock에 key 값을 더한 결과(완전탐색 중)
+    lock_len = len(new_lock) // 3 # 기존 lock의 길이
+    for i in range(lock_len, lock_len * 2):
+        for j in range(lock_len, lock_len * 2): # 1/3 ~ 2/3 지점 탐색
+            if new_lock[i][j] != 1:
+                return False
+    return True           
 
 def solution(key, lock):
-  # n : 자물쇠
-  n = len(lock)
-  # m : 열쇠
-  m = len(key)
-  # 새로운 자물쇠 생성 (3배)
-  new_lock = [[0] * (n * 3) for _ in range(n * 3)]
-  # 새로운 자물쇠 중앙에 기존 좌물쇠 삽입
-  for i in range(n):
-    for j in range(n):
-      new_lock[i + n][j + n] = lock[i][j]
-
-  # 4가지 방향에 대해 완전탐색
-  for rotation in range(4):
-    key = rotate_a_matrix_by_90_degree(key) # 열쇠 회전
-    # 큰 자물쇠의 2/3 지점까지(=중간 지점) 탐색
-    for x in range(n * 2):
-      for y in range(n * 2):
-        # 3배 큰 자물쇠 중간에 열쇠 맞추기
-        for i in range(m):
-          for j in range(m):
-            new_lock[x + i][y + j] += key[i][j]
-        # 큰 자물쇠에 열쇠가 정확히 들어맞는지 check
-        if check(new_lock) == True:
-          return True
-        # 큰 자물쇠에서 열쇠 고대로 다시 빼기(backtrack)
-        for i in range(m):
-          for j in range(m):
-            new_lock[x + i][y + j] -= key[i][j]
+    n = len(lock)
+    m = len(key)
+    new_lock = [[0] * n * 3 for _ in range(n * 3)]
+    
+    for i in range(n):
+        for j in range(n):
+            new_lock[n + i][n + j] = lock[i][j]
+            
+    for _ in range(4):
+        key = rotate(key)
+        for i in range(n * 2):
+            for j in range(n * 2):
+                for a in range(m):
+                    for b in range(m):
+                        new_lock[i+a][j+b] += key[a][b] # key 삽입
+                # 삽입한 key가 맞는지 확인
+                if check(new_lock) == True:
+                    return True
+                # 맞지 않으면 key 빼기 (backtracking)
+                for a in range(m):
+                    for b in range(m):
+                        new_lock[i+a][j+b] -= key[a][b] # key 제거(원상복구)
     return False
 
-key = [[0, 0, 0], [1, 0, 0], [0, 1, 1]] # m
-lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]] # n
+# 220629
+''' 내 답(53.0 / 100.0)
 
-print(solution(key, lock))
+def solution(key, lock):
+    # answer = True
+    
+    n = len(key)
+    for i in range(4):
+        r_key = rotate(key, n)
+        key = r_key # 기존 key 갱신
+        # print(r_key)
+        for x in range(n):
+            for y in range(n):
+                if check(key, lock, x, y, n): # lock의 x,y를 시작점으로 key와 맞는지 체크
+                    return True
+    return False
+
+
+def rotate(key, n):
+    r_key = [[0] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            r_key[j][n-i-1] = key[i][j]
+    return r_key
+
+def check(key, lock, x, y, n):
+    # lock에 모든 부분에 대해 key 맞춰보기
+    for i in range(n):
+        for j in range(n):
+            if x + i < n and y + j < n:
+                if lock[x + i][y + j] == 0 and key[i][j] == 1:
+                    return True
+    return False
+'''
