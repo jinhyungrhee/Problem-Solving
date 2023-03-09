@@ -11,6 +11,114 @@ public class DiameterOfTree028 {
 
 	static ArrayList<Node>[] A;
 	static boolean[] visited;
+	static int[] distance;
+	
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int N = Integer.parseInt(br.readLine());
+		
+		A = new ArrayList[N+1];
+		// 인접 리스트 초기화
+		for (int i = 1; i <= N; i++) {
+			A[i] = new ArrayList<Node>();
+		}    
+		
+		//System.out.println(Arrays.toString(A));
+		
+		// 입력
+		
+		for (int i = 0; i < N; i++) {
+			
+			StringTokenizer st = new StringTokenizer(br.readLine());
+		
+			int S = Integer.parseInt(st.nextToken());
+			
+			while(true) {
+								
+				int E = Integer.parseInt(st.nextToken());
+				if (E == -1) break;
+				
+				int V = Integer.parseInt(st.nextToken());
+				
+				A[S].add(new Node(E, V));
+				
+			}
+			
+		}
+		
+		visited = new boolean[N+1];
+		distance = new int[N + 1];
+		BFS(1);
+		
+		int maxIndex = 1;
+		for (int i = 2; i <= N; i++) {
+			if (distance[maxIndex] < distance[i]) {
+				maxIndex = i;
+			}
+		}
+		
+		visited = new boolean[N+1];
+		distance = new int[N + 1];
+		BFS(maxIndex);
+		
+		Arrays.sort(distance);
+		
+		System.out.println(distance[N]);
+		
+	}
+	
+	public static void BFS(int index) {
+		
+		Queue<Integer> queue = new LinkedList<>();
+		queue.add(index);
+		visited[index] = true;
+		
+		while(!queue.isEmpty()) {
+			
+			int now = queue.poll();
+			
+			for (Node v : A[now]) {
+				
+				if (!visited[v.edge]) {
+					visited[v.edge] = true;
+					queue.add(v.edge);
+					distance[v.edge] = distance[now] + v.value;
+				}
+				
+			}
+			
+		}
+
+		
+	}
+
+}
+
+class Node {
+	
+	int edge;
+	int value;
+	
+	public Node(int edge, int value) {
+		this.edge = edge;
+		this.value = value;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "(" + this.edge + " : " + this.value + ")";
+	}
+}
+
+/*
+
+public class DiameterOfTree028 {
+
+	static ArrayList<Node>[] A;
+	static boolean[] visited;
 	static int sumValue;
 	
 	public static void main(String[] args) throws IOException {
@@ -92,8 +200,6 @@ public class DiameterOfTree028 {
 			}
 			
 		}
-
-		
 	}
 
 }
@@ -114,3 +220,5 @@ class Node {
 		return "(" + this.edge + " : " + this.value + ")";
 	}
 }
+
+*/
